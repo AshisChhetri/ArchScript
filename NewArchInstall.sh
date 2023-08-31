@@ -15,7 +15,7 @@ echo "Warning: Run this script at your own risk."
 echo ""
 
 
-sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
 
 # ------------------------------------------------------
 # Enter partition names
