@@ -46,7 +46,7 @@ mkfs.ext4 /dev/$rootpartition;
 mount /dev/$rootpartition /mnt
 
 # make dir for boot/efi and home folder
-mkdir -p /mnt/boot/efi
+mkdir -p /mnt/boot
 
 # mount boot partition on /mnt/boot/efi path
 mount /dev/$efipartition /mnt/boot
@@ -65,7 +65,7 @@ fi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base base-devel git linux linux-firmware vim reflector rsync intel-ucode
+pacstrap -K /mnt base linux linux-firmware vim networkmanager grub efibootmgr os-prober intel-ucode
 
 # ------------------------------------------------------
 # Generate fstab

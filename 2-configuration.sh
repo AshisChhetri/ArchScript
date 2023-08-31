@@ -15,8 +15,6 @@ zoneinfo="Asia/Katmandu"
 hostname="macro"
 username="ashisthapa"
 
-
-
 pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
 
@@ -43,29 +41,33 @@ pacman -Syy
 pacman --noconfirm -S networkmanager network-manager-applet firefox
 
 
+# Uncomment the locale needed
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+
+#Generate it
+locale-gen
+
 # ------------------------------------------------------
 # Set Keyboard and language
 # ------------------------------------------------------
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
-echo "KEYMAP=us" > /etc/vconsole.conf
+
+# Create locale.conf and set the language
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+# Set keyboard layout
+echo "KEYMAP=pt-latin1" >> /etc/vconsole.conf
 
 # ------------------------------------------------------
 # Set hostname and localhost
 # ------------------------------------------------------
-echo "$hostname" >> /etc/hostname
-echo "127.0.0.1 localhost" >> /etc/hosts
-echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
-clear
+echo "macro" >> /etc/hostname
+echo -e "127.0.0.1	localhost\n::1		localhost\n127.0.1.1	archx64.localdomain	archx64" >> /etc/hosts
 
-
-mkinitcpio -p linux
 
 # ------------------------------------------------------
 # Set Root Password
 # ------------------------------------------------------
 echo "Set root password"
-passwd root
+passwd 
 
 # ------------------------------------------------------
 # Add User
@@ -78,13 +80,16 @@ passwd $username
 # ------------------------------------------------------
 # Enable Services
 # ------------------------------------------------------
-systemctl enable NetworkManager
+# Enable networkmanager service
+systemctl enable NetworkManager.service
 
-# ------------------------------------------------------
-# Grub installation
-# ------------------------------------------------------
-pacman --noconfirm -S grub efibootmgr os-prober 
-grub-install --target=x86_64-efi --efi-directory=/boot/efi
+# Recreate initramfs 
+mkinitcpio -P
+
+#--------------------------------------------------------
+# GRUB Install
+#-------------------------------------------------------
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=archlinux
 grub-mkconfig -o /boot/grub/grub.cfg
 
 
@@ -112,3 +117,4 @@ echo " \__,_|\___/|_| |_|\___| "
 echo "                         "
 echo ""
 echo " Installation complete please reboot your system. "
+
