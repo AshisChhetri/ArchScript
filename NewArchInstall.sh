@@ -14,6 +14,9 @@ echo "manual steps in the README to partition the harddisc!"
 echo "Warning: Run this script at your own risk."
 echo ""
 
+
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+
 # ------------------------------------------------------
 # Enter partition names
 # ------------------------------------------------------

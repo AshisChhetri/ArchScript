@@ -15,6 +15,11 @@ zoneinfo="Asia/Katmandu"
 hostname="macro"
 username="ashisthapa"
 
+
+
+pacman -S --noconfirm sed
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+
 # ------------------------------------------------------
 # Set System Time
 # ------------------------------------------------------
@@ -35,7 +40,7 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman --noconfirm -S grub efibootmgr networkmanager network-manager-applet firefox
+pacman --noconfirm -S networkmanager network-manager-applet firefox
 
 
 # ------------------------------------------------------
@@ -52,6 +57,9 @@ echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
 clear
+
+
+mkinitcpio -p linux
 
 # ------------------------------------------------------
 # Set Root Password
@@ -75,11 +83,14 @@ systemctl enable NetworkManager
 # ------------------------------------------------------
 # Grub installation
 # ------------------------------------------------------
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --removable
+pacman --noconfirm -S grub efibootmgr os-prober 
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+sed -i 's/quiet/pci=noaer/g' /etc/default/grub
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 
-mkinitcpio -p linux
+
 
 # ------------------------------------------------------
 # Add user to wheel
