@@ -64,8 +64,8 @@ mkinitcpio -p linux
 # ------------------------------------------------------
 # Set Root Password
 # ------------------------------------------------------
-# echo "Set root password"
-# passwd root
+echo "Set root password"
+passwd root
 
 # ------------------------------------------------------
 # Add User
@@ -85,8 +85,6 @@ systemctl enable NetworkManager
 # ------------------------------------------------------
 pacman --noconfirm -S grub efibootmgr os-prober 
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
-sed -i 's/quiet/pci=noaer/g' /etc/default/grub
-sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 
