@@ -49,7 +49,7 @@ mount /dev/$rootpartition /mnt
 mkdir -p /mnt/boot/efi
 
 # mount boot partition on /mnt/boot/efi path
-mount /dev/$efipartition /mnt/boot/efi
+mount /dev/$efipartition /mnt/boot
 
 # mount home partition
 if [[ $sephome = y ]] ; then
