@@ -6,7 +6,7 @@
 # | |__| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | |
 #  \____\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
 #                         |___/                                   
-# by Stephan Raabe (2023)
+# by Ashis Chhetri (2023)
 # ------------------------------------------------------
 
 clear
@@ -38,7 +38,7 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman --noconfirm -S networkmanager network-manager-applet firefox
+pacman --noconfirm -S network-manager-applet firefox
 
 
 # Uncomment the locale needed
@@ -66,8 +66,8 @@ echo -e "127.0.0.1	localhost\n::1		localhost\n127.0.1.1	archx64.localdomain	arch
 # ------------------------------------------------------
 # Set Root Password
 # ------------------------------------------------------
-echo "Set root password"
-passwd 
+# echo "Set root password"
+# passwd 
 
 # ------------------------------------------------------
 # Add User
@@ -75,8 +75,6 @@ passwd
 echo "Add user $username"
 useradd -m -G wheel $username
 passwd $username
-
-
 # ------------------------------------------------------
 # Enable Services
 # ------------------------------------------------------
@@ -92,7 +90,19 @@ mkinitcpio -P
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=archlinux
 grub-mkconfig -o /boot/grub/grub.cfg
 
+#---------------------------------------------------------
+#  Install YAY helper
+#---------------------------------------------------------
+cd /opt
 
+# Clone yay-bin from the AUR repository
+git clone https://aur.archlinux.org/yay-bin.git
+
+# Navigate into the yay-bin directory
+cd yay-bin
+
+# Build and install yay-bin using makepkg
+makepkg -si
 
 
 # ------------------------------------------------------
@@ -105,7 +115,7 @@ echo "After:  %wheel ALL=(ALL:ALL) ALL"
 echo ""
 read -p "Open sudoers now?" c
 EDITOR=vim sudo -E visudo
-usermod -aG wheel $username
+
 
 
 clear
