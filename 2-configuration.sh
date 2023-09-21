@@ -12,8 +12,8 @@
 clear
 keyboardlayout="us"
 zoneinfo="Asia/Katmandu"
-hostname="macro"
-username="ashisthapa"
+read -p "Enter Hoatname eg:arch :" hostname
+read -p "Enter User Name : "username
 
 pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
@@ -54,12 +54,12 @@ locale-gen
 # Create locale.conf and set the language
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 # Set keyboard layout
-echo "KEYMAP=pt-latin1" >> /etc/vconsole.conf
+echo "KEYMAP=us" >> /etc/vconsole.conf
 
 # ------------------------------------------------------
 # Set hostname and localhost
 # ------------------------------------------------------
-echo "macro" >> /etc/hostname
+echo $hostname >> /etc/hostname
 echo -e "127.0.0.1	localhost\n::1		localhost\n127.0.1.1	archx64.localdomain	archx64" >> /etc/hosts
 
 
