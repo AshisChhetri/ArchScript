@@ -38,7 +38,7 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman --noconfirm -S network-manager-applet firefox
+pacman --noconfirm -S network-manager-applet firefox sudo
 
 
 # Uncomment the locale needed
