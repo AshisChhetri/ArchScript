@@ -13,7 +13,7 @@ clear
 keyboardlayout="us"
 zoneinfo="Asia/Katmandu"
 read -p "Enter Hoatname eg:arch :" hostname
-read -p "Enter User Name : "username
+read -p "Enter User Name : " username
 
 pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
