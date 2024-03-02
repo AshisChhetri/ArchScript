@@ -65,7 +65,7 @@ fi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base linux linux-firmware vim networkmanager grub efibootmgr os-prober intel-ucode wget devel
+pacstrap -K /mnt base linux linux-firmware vim grub efibootmgr os-prober intel-ucode wget
 
 # ------------------------------------------------------
 # Generate fstab
